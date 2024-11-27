@@ -3,7 +3,7 @@ import { DineIn, TakeOut } from "../../utils/constants";
 import { selectService } from "../../features/order/orderSlice";
 import { GiPaperBagOpen } from "react-icons/gi";
 import { GiMeal } from "react-icons/gi";
-import { Link } from 'react-router-dom'
+import { Link } from "react-router";
 
 
 const SelectService = () => {

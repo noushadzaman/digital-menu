@@ -5,6 +5,7 @@ const initialState = {
   language: EngLang,
   order: {
     service: "",
+    items: [],
   },
 };
 
@@ -18,8 +19,11 @@ const orderSlice = createSlice({
     selectService: (state, action) => {
       state.order.service = action.payload;
     },
+    addOrder: (state, action) => {
+      state.order.items.push(action.payload);
+    },
   },
 });
 
 export default orderSlice.reducer;
-export const { selectLanguage, selectService } = orderSlice.actions;
+export const { selectLanguage, selectService, addOrder } = orderSlice.actions;

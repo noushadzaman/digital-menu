@@ -4,6 +4,7 @@ import OrderConfirm from "./pages/OrderConfirm"
 import { Provider } from "react-redux"
 import { store } from "./app/store"
 import Dishes from "./pages/Dishes"
+import { Toaster } from "@/components/ui/toaster"
 
 function App() {
 
@@ -16,6 +17,7 @@ function App() {
           <Route path="/order-confirm" element={<OrderConfirm />} />
         </Routes>
       </Provider>
+      <Toaster />
     </section>
   )
 }
