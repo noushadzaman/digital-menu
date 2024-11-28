@@ -10,6 +10,7 @@ import { addOrder } from "@/features/order/orderSlice";
 import { useToast } from "@/hooks/use-toast"
 import { GiCook } from "react-icons/gi";
 import DishModal from "./DishModal";
+import DishCustomize from "./DishCustomize";
 const dishes = [
     {
         _id: 'wqdqwd',
@@ -44,8 +45,9 @@ const DishList = ({ dish }) => {
     const { order } = useSelector(state => state.order)
     const [selectedDish, setSelectedDish] = useState({});
     const [dishModal, setDishModal] = useState(false);
-    const { toast } = useToast()
-    const dispatch = useDispatch()
+    const { toast } = useToast();
+    const dispatch = useDispatch();
+
     const handleAddToOrder = (item) => {
         const exist = order.items.find(singleItem => singleItem._id === item._id);
         if (exist) {
@@ -68,14 +70,13 @@ const DishList = ({ dish }) => {
     return (
         <div className="relative">
             <h2 className="text-2xl font-semibold">{dish}</h2>
-            <div className="absolute right-[50px]  md:right-[100px] top-0">
+            <div className="absolute right-[50px] md:right-[100px] top-0">
                 <Dialog>
                     <DialogTrigger>
                         <Button>Make your own {dish} <GiCook /></Button>
                     </DialogTrigger>
                     <DialogContent>
-                        This action cannot be undone. This will permanently delete your account
-                        and remove your data from our servers.
+                        <DishCustomize dish={dish} handleAddToOrder={handleAddToOrder} />
                     </DialogContent>
                 </Dialog>
             </div>
@@ -87,12 +88,12 @@ const DishList = ({ dish }) => {
                             key={dish._id}
                         >
                             <DialogTrigger>
-                                <div className="flex flex-col items-center justify-between cursor-pointer">
+                                <div className="flex flex-col items-center justify-between cursor-pointer shadow-2xl px-4 pb-4 rounded">
                                     <div className="w-[250px]">
                                         <img className="object-cover bg-center text-xl" src={dish.imageUrl} alt="" />
                                     </div>
-                                    <div className="flex justify-between w-full mt-4">
-                                        <p className="">{dish.name}</p>
+                                    <div className="flex justify-between w-full items-center">
+                                        <p className="text-xl">{dish.name}</p>
                                         <p className="">$ {dish.price}</p>
                                     </div>
                                 </div>
