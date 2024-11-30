@@ -84,21 +84,39 @@ const ingredientsData = [
     },
 ];
 
-const DishModal = ({ selectedDish, handleAddToOrder, order }) => {
+const DishModal = ({ selectedDish, onOrder, order }) => {
     const [isIngredientsSliderOpen, setIsIngredientsSliderOpen] = useState();
     const [selectedIngredients, setSelectedIngredients] = useState([]);
     const itemsPrice = selectedIngredients.reduce((acc, curr) => {
-        return acc + curr.price
-    }, 0)
+        return acc + (curr.price * curr.quantity)
+    }, 0);
 
     const addIngredients = (data) => {
         if (selectedIngredients.find(ing => ing._id === data._id)) {
-            return;
+            setSelectedIngredients(
+                selectedIngredients.map(ing => {
+                    if (ing._id === data._id) {
+                        return { ...ing, quantity: ing.quantity + 1 }
+                    }
+                    else {
+                        return { ...ing }
+                    }
+                })
+            )
         }
-        setSelectedIngredients([
-            ...selectedIngredients,
-            data
-        ])
+        else {
+            setSelectedIngredients([
+                ...selectedIngredients,
+                { ...data, quantity: 1 }
+            ])
+        }
+    }
+
+    const handleAddToOrder = () => {
+        onOrder({
+            ...selectedDish,
+            extraItems: selectedIngredients
+        })
     }
 
     const deleteItem = (data) => {
@@ -144,9 +162,10 @@ const DishModal = ({ selectedDish, handleAddToOrder, order }) => {
                                                 <div className="mt-4 flex flex-col items-center justify-center text-center relative">
                                                     <img src={ing.imgUrl} alt="" />
                                                     <span className="text-sm font-semibold">{ing.name}</span>
+                                                    <span className="text-xs font-semibold">X{ing.quantity}</span>
                                                     <div
                                                         onClick={() => deleteItem(ing)}
-                                                        className="absolute top-0 right-0">
+                                                        className="absolute top-0 right-[-5px]">
                                                         <RxCross2 />
                                                     </div>
                                                 </div>

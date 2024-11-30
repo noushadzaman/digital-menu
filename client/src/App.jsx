@@ -12,7 +12,7 @@ import {
 function App() {
 
   return (
-    <section className="h-[100vh] w-[100vw] overflow-hidden">
+    <section className="">
       <TooltipProvider>
         <Provider store={store}>
           <Routes>

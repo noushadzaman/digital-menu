@@ -1,7 +1,9 @@
 import DishList from "@/components/dishes/DishList";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+
 
 const Dishes = () => {
+  
   const dishTypes = [
     "Burger",
     "Pizza",
@@ -12,7 +14,7 @@ const Dishes = () => {
   ];
 
   return (
-    <Tabs defaultValue={dishTypes[0]} className="">
+    <Tabs defaultValue={dishTypes[0]} className="mt-[50px] flex justify-center flex-col items-center">
       <TabsList>
         {
           dishTypes.map(dish => <TabsTrigger
@@ -27,6 +29,7 @@ const Dishes = () => {
           <DishList dish={dish} />
         </TabsContent>)
       }
+     
     </Tabs>
   )
 }
